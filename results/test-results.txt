@@ -1,0 +1,41 @@
+[OK] inference-tests.metta: 10 assertions
+[OK] truth-value-tests.metta: 10 assertions
+test_abduction_both_joint_bounds (test_engine.AlgebraTests.test_abduction_both_joint_bounds) ... ok
+test_induction_rejects_inconsistent_priors (test_engine.AlgebraTests.test_induction_rejects_inconsistent_priors) ... ok
+test_non_finite_and_bounds (test_engine.AlgebraTests.test_non_finite_and_bounds) ... ok
+test_parser_never_fabricates_zero_belief (test_engine.AlgebraTests.test_parser_never_fabricates_zero_belief) ... ok
+test_prior_confidence_affects_induction (test_engine.AlgebraTests.test_prior_confidence_affects_induction) ... ok
+test_scientific_notation (test_engine.AlgebraTests.test_scientific_notation) ... ok
+test_source_revision (test_engine.AlgebraTests.test_source_revision) ... ok
+test_undefined_conditionals_rejected (test_engine.AlgebraTests.test_undefined_conditionals_rejected) ... ok
+test_competing_hypotheses_not_promoted_to_facts (test_engine.DomainTests.test_competing_hypotheses_not_promoted_to_facts) ... ok
+test_forward_backward_agreement (test_engine.DomainTests.test_forward_backward_agreement) ... ok
+test_incomplete_evidence (test_engine.DomainTests.test_incomplete_evidence) ... ok
+test_original_rules_remain_authoritative (test_engine.DomainTests.test_original_rules_remain_authoritative) ... ok
+test_rule_provenance_includes_population_priors (test_engine.DomainTests.test_rule_provenance_includes_population_priors) ... ok
+test_supported_conclusion (test_engine.DomainTests.test_supported_conclusion) ... ok
+test_backward_can_use_induced_rule (test_engine.InductionTests.test_backward_can_use_induced_rule) ... ok
+test_kb_induction_is_stored_and_consumed (test_engine.InductionTests.test_kb_induction_is_stored_and_consumed) ... ok
+test_shared_cohort_support_prevents_double_counting (test_engine.InductionTests.test_shared_cohort_support_prevents_double_counting) ... ok
+test_domain_rejects_impossible_rule (test_engine.RunnerTests.test_domain_rejects_impossible_rule) ... ok
+test_empty_discovery_fails (test_engine.RunnerTests.test_empty_discovery_fails) ... ok
+test_intentionally_failing_assertion_is_detected (test_engine.RunnerTests.test_intentionally_failing_assertion_is_detected) ... ok
+test_path_budget_is_enforced (test_engine.RunnerTests.test_path_budget_is_enforced) ... ok
+test_active_space_has_only_one_current_source_fact (test_engine.UpdateTests.test_active_space_has_only_one_current_source_fact) ... ok
+test_correction_with_same_evidence_ids_recomputes (test_engine.UpdateTests.test_correction_with_same_evidence_ids_recomputes) ... ok
+test_cycle_terminates_and_does_not_amplify_observation (test_engine.UpdateTests.test_cycle_terminates_and_does_not_amplify_observation) ... ok
+test_disjoint_proofs_are_revised (test_engine.UpdateTests.test_disjoint_proofs_are_revised) ... ok
+test_duplicate_evidence_does_not_increase_confidence (test_engine.UpdateTests.test_duplicate_evidence_does_not_increase_confidence) ... ok
+test_input_symbols_are_not_executable_expressions (test_engine.UpdateTests.test_input_symbols_are_not_executable_expressions) ... ok
+test_known_fact_at_zero_depth (test_engine.UpdateTests.test_known_fact_at_zero_depth) ... ok
+test_new_evidence_updates_source_and_downstream (test_engine.UpdateTests.test_new_evidence_updates_source_and_downstream) ... ok
+test_partial_overlap_is_not_revised_as_independent (test_engine.UpdateTests.test_partial_overlap_is_not_revised_as_independent) ... ok
+test_rerun_is_idempotent (test_engine.UpdateTests.test_rerun_is_idempotent) ... ok
+test_retraction_removes_unsupported_descendants (test_engine.UpdateTests.test_retraction_removes_unsupported_descendants) ... ok
+test_zero_confidence_is_not_a_supported_conclusion (test_engine.UpdateTests.test_zero_confidence_is_not_a_supported_conclusion) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 12.071s
+
+OK
+PASS: 20 MeTTa assertions and 33 Python regression tests

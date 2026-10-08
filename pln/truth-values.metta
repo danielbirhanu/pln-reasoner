@@ -1,13 +1,18 @@
-;; Truth Value Representation and Utilities
-
-;; Convert confidence to evidence weight
+(= (valid-prob $s) (and (>= $s 0.0) (<= $s 1.0)))
+(= (valid-confidence $c) (and (>= $c 0.0) (< $c 1.0)))
+(= (valid-stv (stv $s $c)) (and (valid-prob $s) (valid-confidence $c)))
 (= (c2w $c)
-   (/ $c (- 1.0 $c)))
-
-;; Convert evidence weight to confidence
+   (if (valid-confidence $c) (/ $c (- 1.0 $c))
+       (Error InvalidConfidence $c)))
 (= (w2c $w)
-   (/ $w (+ $w 1.0)))
-
-;; Helper to extract strength and confidence from an STV
+   (if (>= $w 0.0) (/ $w (+ $w 1.0)) (Error InvalidWeight $w)))
 (= (get-strength (stv $s $c)) $s)
 (= (get-confidence (stv $s $c)) $c)
+(= (abs $x) (if (< $x 0.0) (* -1.0 $x) $x))
+(= (min2 $a $b) (if (< $a $b) $a $b))
+(= (max2 $a $b) (if (> $a $b) $a $b))
+(= (conditional-consistent $pA $pB $pBA)
+   (and (and (valid-prob $pA) (valid-prob $pB))
+        (and (valid-prob $pBA)
+             (and (>= (* $pA $pBA) (max2 0.0 (- (+ $pA $pB) 1.0)))
+                  (<= (* $pA $pBA) (min2 $pA $pB))))))

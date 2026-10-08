@@ -1,7 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "pln-reasoner"
-version = "0.1.0"
-description = "Add your description here"
+name = "education-pln-reasoner"
+version = "1.0.0"
+description = "MeTTa education reasoning with explicit evidence and bounded bidirectional search"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["hyperon==0.2.10"]
+
+[tool.setuptools]
+packages = ["search"]
+
+[tool.setuptools.data-files]
+"share/education-pln-reasoner/pln" = ["pln/truth-values.metta", "pln/rules.metta"]
+"share/education-pln-reasoner/search" = ["search/forward.metta", "search/backward.metta"]
+"share/education-pln-reasoner/knowledge" = ["knowledge/students.metta", "knowledge/education-rules.metta", "knowledge/observations.metta", "knowledge/cohort.metta"]

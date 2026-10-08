@@ -1,0 +1,53 @@
+
+A - Supported conclusion
+Does Hana need academic support?
+  result: <0.431720, 0.075061>
+Assignment and prerequisite evidence support risk; overlapping intervention paths are not independently revised.
+
+B - Incomplete evidence
+Can AcademicRisk(Dawit) be established?
+  result: NO SUPPORTED PROOF
+LowParticipation has no matching risk rule. Missing evidence does not imply that risk is false.
+
+C - Uncertain evidence
+How strongly does an uncertain assignment observation support risk?
+  result: <0.428000, 0.054600>
+Confidence is reduced by the uncertain observation and implication strength/confidence.
+
+D - Competing explanations
+What could explain Sara's low quiz performance?
+  (Evaluation ConceptualDifficulty Sara): <0.458333, 0.295306>
+  (Evaluation WeakPrerequisiteKnowledge Sara): <0.350000, 0.273576>
+  (Evaluation LowEngagement Sara): <0.237500, 0.228834>
+  (Evaluation WeakPrerequisiteTest Sara): <0.165625, 0.191529>
+Bayesian inversion yields alternative explanations. They are candidates, not confirmed diagnoses, and their strengths need not sum to one.
+
+E - New conflicting evidence
+Does a teacher observation change Hana's existing risk belief?
+  before: <0.568810, 0.347673>
+  after: <0.449621, 0.293248>
+  source_after: <0.514286, 0.875000>
+Independent observations are consolidated, then all affected proofs are rebuilt. A repeat run changes nothing.
+
+F - Four-hop uncertainty propagation
+How does confidence change along the prerequisite-to-intervention path?
+  hop 0: (Evaluation WeakPrerequisiteTest Hana) <0.900000, 0.900000>
+  hop 1: (Evaluation WeakPrerequisiteKnowledge Hana) <0.812000, 0.619650>
+  hop 2: (Evaluation ConceptualDifficulty Hana) <0.693960, 0.342146>
+  hop 3: (Evaluation AcademicRisk Hana) <0.561289, 0.132964>
+  hop 4: (Evaluation AcademicIntervention Hana) <0.429741, 0.036383>
+The authored four-link domain subset demonstrates a true four-hop proof with decreasing confidence at each hop.
+
+G - Knowledge-base induction
+Can cohort co-occurrence generate and apply a new educational relationship?
+  result: <0.221778, 0.048552>
+  induced LowQuizPerformance -> WeakPrerequisiteKnowledge: <0.272222, 0.297256>
+Cohort conditional estimates generate LowQuizPerformance -> WeakPrerequisiteKnowledge. Both search directions use it for Sara, carrying cohort and prior support.
+
+H - Forward/backward agreement
+  MATCH: (Evaluation AcademicRisk Hana) [0.5688096320703258, 0.3476728315191026]
+  MATCH: (Evaluation AcademicIntervention Hana) [0.43171999999999994, 0.07506135]
+  MATCH: (Evaluation LowQuizPerformance Hana) [0.8368823975269788, 0.8608552521642233]
+Both directions enumerate bounded acyclic proofs and apply the same deterministic disjoint-evidence selection policy.
+
+PASS: all eight scenario assertions completed.

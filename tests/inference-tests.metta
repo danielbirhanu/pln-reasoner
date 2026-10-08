@@ -1,26 +1,14 @@
-;; Tests for PLN Inference Rules
-
 !(import! &self pln:truth-values)
 !(import! &self pln:rules)
-
-;; Test: absolute value helper
-!(assertEqualToResult (abs -0.5) (0.5))
-!(assertEqualToResult (abs 0.3) (0.3))
-
-;; Test: Conflict level
-!(assertEqualToResult (conflict-level (stv 0.9 0.8) (stv 0.3 0.7)) (0.6))
-!(assertEqualToResult (conflict-level (stv 0.3 0.7) (stv 0.9 0.8)) (0.6))
-
-;; Test: Deduction
-!(assertEqualToResult (deduction (stv 0.9 0.9) (stv 0.85 0.8)) (stv 0.765 0.72))
-
-;; Test: Induction and Abduction 
-!(assertEqualToResult (induction (stv 0.9 0.9) (stv 0.85 0.8)) (stv 0.765 0.36))
-!(assertEqualToResult (abduction (stv 0.9 0.9) (stv 0.85 0.8)) (stv 0.765 0.36))
-
-;; Test: Revision
-;; Case 1: Identical confidence
-!(assertEqualToResult (revision (stv 1.0 0.5) (stv 0.0 0.5)) (stv 0.5 (/ 2.0 3.0)))
-
-;; Case 2: Different confidence pulls strength towards the higher confidence
-!(assertEqualToResult (revision (stv 1.0 0.75) (stv 0.0 0.5)) (stv 0.75 0.8))
+(= (close $a $b) (< (abs (- $a $b)) 0.00000001))
+(= (close-tv (stv $a $b) (stv $c $d)) (and (close $a $c) (close $b $d)))
+!(assertEqual (close-tv (revision (stv 0.8 0.75) (stv 0.3 0.8)) (stv 0.5142857142857143 0.875)) True)
+!(assertEqual (revision (stv 0.8 0.0) (stv 0.3 0.0)) (stv 0.5 0.0))
+!(assertEqual (close-tv (modus-ponens (stv 0.9 0.9) (stv 0.85 0.8)) (stv 0.767 0.5508)) True)
+!(assertEqual (close-tv (relationship-deduction (stv 0.85 0.9) (stv 0.8 0.9) (stv 0.2 0.9) (stv 0.25 0.9) (stv 0.35 0.9)) (stv 0.71 0.5508)) True)
+!(assertEqual (close-tv (induction (stv 0.8 0.9) (stv 0.85 0.8) (stv 0.4 0.9) (stv 0.5 0.9) (stv 0.6 0.9)) (stv 0.7 0.2767667493796527)) True)
+!(assertEqual (close-tv (abduction (stv 0.8 0.9) (stv 0.85 0.8) (stv 0.3 0.9) (stv 0.4 0.9)) (stv 0.525 0.30751861042183626)) True)
+!(assertEqual (modus-ponens (stv 1.2 0.9) (stv 0.8 0.9)) (Error InvalidSTV modus-ponens))
+!(assertEqual (relationship-deduction (stv 0.5 0.9) (stv 0.9 0.9) (stv 0.1 0.9) (stv 0.5 0.9) (stv 0.1 0.9)) (Error InconsistentProbabilities relationship-deduction))
+!(assertEqual (induction (stv 0.9 0.9) (stv 0.9 0.9) (stv 0.5 0.9) (stv 0.1 0.9) (stv 0.1 0.9)) (Error InconsistentProbabilities induction))
+!(assertEqual (abduction (stv 0.8 0.9) (stv 0.1 0.9) (stv 0.9 0.9) (stv 0.9 0.9)) (Error InconsistentProbabilities abduction))

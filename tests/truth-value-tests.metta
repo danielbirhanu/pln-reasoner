@@ -1,24 +1,13 @@
-;; Tests for Truth Value representations
-
-
 !(import! &self pln:truth-values)
-
-;; Test: c2w (confidence to weight)
-!(assertEqualToResult (c2w 0.5) (1.0))
-
-!(assertEqualToResult (c2w 0.75) (3.0))
-
-!(assertEqualToResult (c2w 0.8) (4.0))
-
-!(assertEqualToResult (c2w 0.9) (9.0))
-
-;; Test: w2c (weight to confidence)
-!(assertEqualToResult (w2c 1.0) (0.5))
-
-!(assertEqualToResult (w2c 3.0) (0.75))
-
-!(assertEqualToResult (w2c (c2w 0.75)) (0.75))
-
-;; Test: Extraction helpers
-!(assertEqualToResult (get-strength (stv 0.8 0.6)) (0.8))
-!(assertEqualToResult (get-confidence (stv 0.8 0.6)) (0.6))
+!(import! &self pln:rules)
+(= (close $a $b) (< (abs (- $a $b)) 0.00000001))
+!(assertEqual (close (c2w 0.75) 3.0) True)
+!(assertEqual (close (w2c 4.0) 0.8) True)
+!(assertEqual (valid-stv (stv 0.8 0.9)) True)
+!(assertEqual (valid-stv (stv -0.1 0.9)) False)
+!(assertEqual (valid-stv (stv 0.1 1.0)) False)
+!(assertEqual (c2w 1.0) (Error InvalidConfidence 1.0))
+!(assertEqual (c2w -0.1) (Error InvalidConfidence -0.1))
+!(assertEqual (w2c -2.0) (Error InvalidWeight -2.0))
+!(assertEqual (conditional-consistent 0.9 0.9 0.1) False)
+!(assertEqual (conditional-consistent 0.2 0.4 0.85) True)

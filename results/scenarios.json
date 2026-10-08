@@ -1,0 +1,363 @@
+[
+  {
+    "scenario": "A - Supported conclusion",
+    "question": "Does Hana need academic support?",
+    "result": {
+      "statement": "(Evaluation AcademicIntervention Hana)",
+      "strength": 0.43171999999999994,
+      "confidence": 0.07506135,
+      "support": [
+        "assignment-001",
+        "rule-assignment-risk",
+        "rule-risk-intervention"
+      ],
+      "hops": 2,
+      "proof": "(Fact (Evaluation AcademicIntervention Hana) (stv 0.43171999999999994 0.075061349999999999) (Derived ModusPonens (Fact (Evaluation AcademicRisk Hana) (stv 0.56399999999999995 0.27300000000000002) (Derived ModusPonens (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.80000000000000004 0.75) (BaseEvidence assignment-001)) (Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.69999999999999996 0.65000000000000002) (BaseEvidence rule-assignment-risk)))) (Rule (Implication AcademicRisk AcademicIntervention) (stv 0.75 0.65000000000000002) (BaseEvidence rule-risk-intervention))))"
+    },
+    "risk": {
+      "statement": "(Evaluation AcademicRisk Hana)",
+      "strength": 0.5688096320703258,
+      "confidence": 0.3476728315191026,
+      "support": [
+        "assignment-001",
+        "prior-difficulty",
+        "prior-prerequisite",
+        "prior-risk",
+        "quiz-001",
+        "rule-assignment-risk",
+        "rule-difficulty-risk",
+        "rule-prerequisite-difficulty",
+        "rule-test-prerequisite"
+      ],
+      "hops": 3,
+      "proof": "(Fact (Evaluation AcademicRisk Hana) (stv 0.56880963207032575 0.34767283151910261) (Revised (Fact (Evaluation AcademicRisk Hana) (stv 0.56399999999999995 0.27300000000000002) (Derived ModusPonens (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.80000000000000004 0.75) (BaseEvidence assignment-001)) (Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.69999999999999996 0.65000000000000002) (BaseEvidence rule-assignment-risk)))) (Fact (Evaluation AcademicRisk Hana) (stv 0.58028000000000013 0.13603722733440002) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteKnowledge Hana) (stv 0.81200000000000006 0.61965000000000003) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001)) (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite)))) (Rule (Implication WeakPrerequisiteKnowledge AcademicRisk) (stv 0.71000000000000008 0.38079999999999997) (Derived RelationshipDeduction (Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-difficulty)) (Rule (Implication ConceptualDifficulty AcademicRisk) (stv 0.80000000000000004 0.69999999999999996) (BaseEvidence rule-difficulty-risk)) (Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite)) (Fact (Prior ConceptualDifficulty) (stv 0.25 0.90000000000000002) (BaseEvidence prior-difficulty)) (Fact (Prior AcademicRisk) (stv 0.34999999999999998 0.90000000000000002) (BaseEvidence prior-risk))))))))"
+    },
+    "explanation": "Assignment and prerequisite evidence support risk; overlapping intervention paths are not independently revised."
+  },
+  {
+    "scenario": "B - Incomplete evidence",
+    "question": "Can AcademicRisk(Dawit) be established?",
+    "result": null,
+    "explanation": "LowParticipation has no matching risk rule. Missing evidence does not imply that risk is false."
+  },
+  {
+    "scenario": "C - Uncertain evidence",
+    "question": "How strongly does an uncertain assignment observation support risk?",
+    "result": {
+      "statement": "(Evaluation AcademicRisk UncertainStudent)",
+      "strength": 0.428,
+      "confidence": 0.0546,
+      "support": [
+        "rule-assignment-risk",
+        "uncertain-assignment"
+      ],
+      "hops": 1,
+      "proof": "(Fact (Evaluation AcademicRisk UncertainStudent) (stv 0.42799999999999999 0.054600000000000003) (Derived ModusPonens (Fact (Evaluation LowAssignmentCompletion UncertainStudent) (stv 0.59999999999999998 0.20000000000000001) (BaseEvidence uncertain-assignment)) (Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.69999999999999996 0.65000000000000002) (BaseEvidence rule-assignment-risk))))"
+    },
+    "explanation": "Confidence is reduced by the uncertain observation and implication strength/confidence."
+  },
+  {
+    "scenario": "D - Competing explanations",
+    "question": "What could explain Sara's low quiz performance?",
+    "hypotheses": [
+      {
+        "statement": "(Evaluation ConceptualDifficulty Sara)",
+        "strength": 0.4583333333333333,
+        "confidence": 0.2953057982525814,
+        "support": [
+          "prior-difficulty",
+          "prior-quiz",
+          "quiz-003",
+          "rule-difficulty-quiz"
+        ],
+        "hops": 1,
+        "proof": "(Fact (Evaluation ConceptualDifficulty Sara) (stv 0.45833333333333331 0.29530579825258141) (Hypothesis Abduction (Fact (Evaluation LowQuizPerformance Sara) (stv 0.80000000000000004 0.75) (BaseEvidence quiz-003)) (Rule (Implication ConceptualDifficulty LowQuizPerformance) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-difficulty-quiz)) (Fact (Prior ConceptualDifficulty) (stv 0.25 0.90000000000000002) (BaseEvidence prior-difficulty)) (Fact (Prior LowQuizPerformance) (stv 0.40000000000000002 0.90000000000000002) (BaseEvidence prior-quiz))))"
+      },
+      {
+        "statement": "(Evaluation WeakPrerequisiteKnowledge Sara)",
+        "strength": 0.35000000000000003,
+        "confidence": 0.2735761589403974,
+        "support": [
+          "prior-prerequisite",
+          "prior-quiz",
+          "quiz-003",
+          "rule-prerequisite-quiz"
+        ],
+        "hops": 1,
+        "proof": "(Fact (Evaluation WeakPrerequisiteKnowledge Sara) (stv 0.35000000000000003 0.27357615894039738) (Hypothesis Abduction (Fact (Evaluation LowQuizPerformance Sara) (stv 0.80000000000000004 0.75) (BaseEvidence quiz-003)) (Rule (Implication WeakPrerequisiteKnowledge LowQuizPerformance) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-quiz)) (Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite)) (Fact (Prior LowQuizPerformance) (stv 0.40000000000000002 0.90000000000000002) (BaseEvidence prior-quiz))))"
+      },
+      {
+        "statement": "(Evaluation LowEngagement Sara)",
+        "strength": 0.2375,
+        "confidence": 0.22883408071748879,
+        "support": [
+          "prior-engagement",
+          "prior-quiz",
+          "quiz-003",
+          "rule-engagement-quiz"
+        ],
+        "hops": 1,
+        "proof": "(Fact (Evaluation LowEngagement Sara) (stv 0.23749999999999999 0.22883408071748879) (Hypothesis Abduction (Fact (Evaluation LowQuizPerformance Sara) (stv 0.80000000000000004 0.75) (BaseEvidence quiz-003)) (Rule (Implication LowEngagement LowQuizPerformance) (stv 0.75 0.69999999999999996) (BaseEvidence rule-engagement-quiz)) (Fact (Prior LowEngagement) (stv 0.14999999999999999 0.90000000000000002) (BaseEvidence prior-engagement)) (Fact (Prior LowQuizPerformance) (stv 0.40000000000000002 0.90000000000000002) (BaseEvidence prior-quiz))))"
+      },
+      {
+        "statement": "(Evaluation WeakPrerequisiteTest Sara)",
+        "strength": 0.165625,
+        "confidence": 0.19152905011976912,
+        "support": [
+          "prior-prerequisite",
+          "prior-prerequisite-test",
+          "prior-quiz",
+          "quiz-003",
+          "rule-prerequisite-quiz",
+          "rule-test-prerequisite"
+        ],
+        "hops": 1,
+        "proof": "(Fact (Evaluation WeakPrerequisiteTest Sara) (stv 0.16562499999999999 0.19152905011976912) (Hypothesis Abduction (Fact (Evaluation LowQuizPerformance Sara) (stv 0.80000000000000004 0.75) (BaseEvidence quiz-003)) (Rule (Implication WeakPrerequisiteTest LowQuizPerformance) (stv 0.79374999999999996 0.5202) (Derived RelationshipDeduction (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite)) (Rule (Implication WeakPrerequisiteKnowledge LowQuizPerformance) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-quiz)) (Fact (Prior WeakPrerequisiteTest) (stv 0.10000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite-test)) (Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite)) (Fact (Prior LowQuizPerformance) (stv 0.40000000000000002 0.90000000000000002) (BaseEvidence prior-quiz)))) (Fact (Prior WeakPrerequisiteTest) (stv 0.10000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite-test)) (Fact (Prior LowQuizPerformance) (stv 0.40000000000000002 0.90000000000000002) (BaseEvidence prior-quiz))))"
+      }
+    ],
+    "explanation": "Bayesian inversion yields alternative explanations. They are candidates, not confirmed diagnoses, and their strengths need not sum to one."
+  },
+  {
+    "scenario": "E - New conflicting evidence",
+    "question": "Does a teacher observation change Hana's existing risk belief?",
+    "before": {
+      "statement": "(Evaluation AcademicRisk Hana)",
+      "strength": 0.5688096320703258,
+      "confidence": 0.3476728315191026,
+      "support": [
+        "assignment-001",
+        "prior-difficulty",
+        "prior-prerequisite",
+        "prior-risk",
+        "quiz-001",
+        "rule-assignment-risk",
+        "rule-difficulty-risk",
+        "rule-prerequisite-difficulty",
+        "rule-test-prerequisite"
+      ],
+      "hops": 3,
+      "proof": "(Fact (Evaluation AcademicRisk Hana) (stv 0.56880963207032575 0.34767283151910261) (Revised (Fact (Evaluation AcademicRisk Hana) (stv 0.56399999999999995 0.27300000000000002) (Derived ModusPonens (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.80000000000000004 0.75) (BaseEvidence assignment-001)) (Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.69999999999999996 0.65000000000000002) (BaseEvidence rule-assignment-risk)))) (Fact (Evaluation AcademicRisk Hana) (stv 0.58028000000000013 0.13603722733440002) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteKnowledge Hana) (stv 0.81200000000000006 0.61965000000000003) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001)) (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite)))) (Rule (Implication WeakPrerequisiteKnowledge AcademicRisk) (stv 0.71000000000000008 0.38079999999999997) (Derived RelationshipDeduction (Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-difficulty)) (Rule (Implication ConceptualDifficulty AcademicRisk) (stv 0.80000000000000004 0.69999999999999996) (BaseEvidence rule-difficulty-risk)) (Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite)) (Fact (Prior ConceptualDifficulty) (stv 0.25 0.90000000000000002) (BaseEvidence prior-difficulty)) (Fact (Prior AcademicRisk) (stv 0.34999999999999998 0.90000000000000002) (BaseEvidence prior-risk))))))))"
+    },
+    "after": {
+      "statement": "(Evaluation AcademicRisk Hana)",
+      "strength": 0.44962083632419575,
+      "confidence": 0.29324800182300864,
+      "support": [
+        "assignment-001",
+        "prior-difficulty",
+        "prior-prerequisite",
+        "prior-risk",
+        "quiz-001",
+        "rule-assignment-risk",
+        "rule-difficulty-risk",
+        "rule-prerequisite-difficulty",
+        "rule-test-prerequisite",
+        "teacher-assignment-new"
+      ],
+      "hops": 3,
+      "proof": "(Fact (Evaluation AcademicRisk Hana) (stv 0.44962083632419575 0.29324800182300864) (Revised (Fact (Evaluation AcademicRisk Hana) (stv 0.36971428571428577 0.20475000000000004) (Derived ModusPonens (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.51428571428571435 0.87500000000000011) (Revised (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.29999999999999999 0.80000000000000004) (BaseEvidence teacher-assignment-new)) (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.80000000000000004 0.75) (BaseEvidence assignment-001)))) (Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.69999999999999996 0.65000000000000002) (BaseEvidence rule-assignment-risk)))) (Fact (Evaluation AcademicRisk Hana) (stv 0.58028000000000013 0.13603722733440002) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteKnowledge Hana) (stv 0.81200000000000006 0.61965000000000003) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001)) (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite)))) (Rule (Implication WeakPrerequisiteKnowledge AcademicRisk) (stv 0.71000000000000008 0.38079999999999997) (Derived RelationshipDeduction (Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-difficulty)) (Rule (Implication ConceptualDifficulty AcademicRisk) (stv 0.80000000000000004 0.69999999999999996) (BaseEvidence rule-difficulty-risk)) (Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite)) (Fact (Prior ConceptualDifficulty) (stv 0.25 0.90000000000000002) (BaseEvidence prior-difficulty)) (Fact (Prior AcademicRisk) (stv 0.34999999999999998 0.90000000000000002) (BaseEvidence prior-risk))))))))"
+    },
+    "source_after": {
+      "statement": "(Evaluation LowAssignmentCompletion Hana)",
+      "strength": 0.5142857142857143,
+      "confidence": 0.8750000000000001,
+      "support": [
+        "assignment-001",
+        "teacher-assignment-new"
+      ],
+      "hops": 0,
+      "proof": "(Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.51428571428571435 0.87500000000000011) (Revised (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.29999999999999999 0.80000000000000004) (BaseEvidence teacher-assignment-new)) (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.80000000000000004 0.75) (BaseEvidence assignment-001))))"
+    },
+    "intervention_before": {
+      "statement": "(Evaluation AcademicIntervention Hana)",
+      "strength": 0.43171999999999994,
+      "confidence": 0.07506135,
+      "support": [
+        "assignment-001",
+        "rule-assignment-risk",
+        "rule-risk-intervention"
+      ],
+      "hops": 2,
+      "proof": "(Fact (Evaluation AcademicIntervention Hana) (stv 0.43171999999999994 0.075061349999999999) (Derived ModusPonens (Fact (Evaluation AcademicRisk Hana) (stv 0.56399999999999995 0.27300000000000002) (Derived ModusPonens (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.80000000000000004 0.75) (BaseEvidence assignment-001)) (Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.69999999999999996 0.65000000000000002) (BaseEvidence rule-assignment-risk)))) (Rule (Implication AcademicRisk AcademicIntervention) (stv 0.75 0.65000000000000002) (BaseEvidence rule-risk-intervention))))"
+    },
+    "intervention_after": {
+      "statement": "(Evaluation AcademicIntervention Hana)",
+      "strength": 0.28861538461538466,
+      "confidence": 0.05413078125000002,
+      "support": [
+        "assignment-001",
+        "prior-assignment",
+        "prior-intervention",
+        "prior-risk",
+        "rule-assignment-risk",
+        "rule-risk-intervention",
+        "teacher-assignment-new"
+      ],
+      "hops": 2,
+      "proof": "(Fact (Evaluation AcademicIntervention Hana) (stv 0.28861538461538466 0.054130781250000017) (Derived ModusPonens (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.51428571428571435 0.87500000000000011) (Revised (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.29999999999999999 0.80000000000000004) (BaseEvidence teacher-assignment-new)) (Fact (Evaluation LowAssignmentCompletion Hana) (stv 0.80000000000000004 0.75) (BaseEvidence assignment-001)))) (Rule (Implication LowAssignmentCompletion AcademicIntervention) (stv 0.54230769230769227 0.2218125) (Derived RelationshipDeduction (Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.69999999999999996 0.65000000000000002) (BaseEvidence rule-assignment-risk)) (Rule (Implication AcademicRisk AcademicIntervention) (stv 0.75 0.65000000000000002) (BaseEvidence rule-risk-intervention)) (Fact (Prior LowAssignmentCompletion) (stv 0.29999999999999999 0.90000000000000002) (BaseEvidence prior-assignment)) (Fact (Prior AcademicRisk) (stv 0.34999999999999998 0.90000000000000002) (BaseEvidence prior-risk)) (Fact (Prior AcademicIntervention) (stv 0.29999999999999999 0.90000000000000002) (BaseEvidence prior-intervention))))))"
+    },
+    "explanation": "Independent observations are consolidated, then all affected proofs are rebuilt. A repeat run changes nothing."
+  },
+  {
+    "scenario": "F - Four-hop uncertainty propagation",
+    "question": "How does confidence change along the prerequisite-to-intervention path?",
+    "hops": [
+      {
+        "statement": "(Evaluation WeakPrerequisiteTest Hana)",
+        "strength": 0.9,
+        "confidence": 0.9,
+        "support": [
+          "quiz-001"
+        ],
+        "hops": 0,
+        "proof": "(Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001))"
+      },
+      {
+        "statement": "(Evaluation WeakPrerequisiteKnowledge Hana)",
+        "strength": 0.812,
+        "confidence": 0.61965,
+        "support": [
+          "quiz-001",
+          "rule-test-prerequisite"
+        ],
+        "hops": 1,
+        "proof": "(Fact (Evaluation WeakPrerequisiteKnowledge Hana) (stv 0.81200000000000006 0.61965000000000003) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001)) (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite))))"
+      },
+      {
+        "statement": "(Evaluation ConceptualDifficulty Hana)",
+        "strength": 0.69396,
+        "confidence": 0.34214594400000004,
+        "support": [
+          "quiz-001",
+          "rule-prerequisite-difficulty",
+          "rule-test-prerequisite"
+        ],
+        "hops": 2,
+        "proof": "(Fact (Evaluation ConceptualDifficulty Hana) (stv 0.69396000000000002 0.34214594400000004) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteKnowledge Hana) (stv 0.81200000000000006 0.61965000000000003) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001)) (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite)))) (Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-difficulty))))"
+      },
+      {
+        "statement": "(Evaluation AcademicRisk Hana)",
+        "strength": 0.5612888,
+        "confidence": 0.1329639356070144,
+        "support": [
+          "quiz-001",
+          "rule-difficulty-risk",
+          "rule-prerequisite-difficulty",
+          "rule-test-prerequisite"
+        ],
+        "hops": 3,
+        "proof": "(Fact (Evaluation AcademicRisk Hana) (stv 0.56128880000000003 0.13296393560701439) (Derived ModusPonens (Fact (Evaluation ConceptualDifficulty Hana) (stv 0.69396000000000002 0.34214594400000004) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteKnowledge Hana) (stv 0.81200000000000006 0.61965000000000003) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001)) (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite)))) (Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-difficulty)))) (Rule (Implication ConceptualDifficulty AcademicRisk) (stv 0.80000000000000004 0.69999999999999996) (BaseEvidence rule-difficulty-risk))))"
+      },
+      {
+        "statement": "(Evaluation AcademicIntervention Hana)",
+        "strength": 0.429740824,
+        "confidence": 0.03638269433181746,
+        "support": [
+          "quiz-001",
+          "rule-difficulty-risk",
+          "rule-prerequisite-difficulty",
+          "rule-risk-intervention",
+          "rule-test-prerequisite"
+        ],
+        "hops": 4,
+        "proof": "(Fact (Evaluation AcademicIntervention Hana) (stv 0.42974082400000002 0.036382694331817463) (Derived ModusPonens (Fact (Evaluation AcademicRisk Hana) (stv 0.56128880000000003 0.13296393560701439) (Derived ModusPonens (Fact (Evaluation ConceptualDifficulty Hana) (stv 0.69396000000000002 0.34214594400000004) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteKnowledge Hana) (stv 0.81200000000000006 0.61965000000000003) (Derived ModusPonens (Fact (Evaluation WeakPrerequisiteTest Hana) (stv 0.90000000000000002 0.90000000000000002) (BaseEvidence quiz-001)) (Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90000000000000002 0.84999999999999998) (BaseEvidence rule-test-prerequisite)))) (Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.84999999999999998 0.80000000000000004) (BaseEvidence rule-prerequisite-difficulty)))) (Rule (Implication ConceptualDifficulty AcademicRisk) (stv 0.80000000000000004 0.69999999999999996) (BaseEvidence rule-difficulty-risk)))) (Rule (Implication AcademicRisk AcademicIntervention) (stv 0.75 0.65000000000000002) (BaseEvidence rule-risk-intervention))))"
+      }
+    ],
+    "explanation": "The authored four-link domain subset demonstrates a true four-hop proof with decreasing confidence at each hop."
+  },
+  {
+    "scenario": "G - Knowledge-base induction",
+    "question": "Can cohort co-occurrence generate and apply a new educational relationship?",
+    "induced_rule": {
+      "from": "LowQuizPerformance",
+      "to": "WeakPrerequisiteKnowledge",
+      "strength": 0.2722222222222222,
+      "confidence": 0.2972558483861416,
+      "support": [
+        "cohort-prerequisite",
+        "cohort-quiz",
+        "prior-cohort",
+        "prior-prerequisite",
+        "prior-quiz"
+      ],
+      "proof": "(Rule (Implication LowQuizPerformance WeakPrerequisiteKnowledge) (stv 0.2722222222222222 0.29725584838614161) (Derived Induction (CohortConditional CohortA LowQuizPerformance (stv 0.80000000000000004 0.90000000000000002) (BaseEvidence cohort-quiz)) (CohortConditional CohortA WeakPrerequisiteKnowledge (stv 0.84999999999999998 0.90000000000000002) (BaseEvidence cohort-prerequisite)) (Fact (Prior CohortA) (stv 0.10000000000000001 0.90000000000000002) (BaseEvidence prior-cohort)) (Fact (Prior LowQuizPerformance) (stv 0.40000000000000002 0.90000000000000002) (BaseEvidence prior-quiz)) (Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite))))"
+    },
+    "result": {
+      "statement": "(Evaluation WeakPrerequisiteKnowledge Sara)",
+      "strength": 0.22177777777777777,
+      "confidence": 0.04855178856973646,
+      "support": [
+        "cohort-prerequisite",
+        "cohort-quiz",
+        "prior-cohort",
+        "prior-prerequisite",
+        "prior-quiz",
+        "quiz-003"
+      ],
+      "hops": 1,
+      "proof": "(Fact (Evaluation WeakPrerequisiteKnowledge Sara) (stv 0.22177777777777777 0.048551788569736458) (Derived ModusPonens (Fact (Evaluation LowQuizPerformance Sara) (stv 0.80000000000000004 0.75) (BaseEvidence quiz-003)) (Rule (Implication LowQuizPerformance WeakPrerequisiteKnowledge) (stv 0.2722222222222222 0.29725584838614161) (Derived Induction (CohortConditional CohortA LowQuizPerformance (stv 0.80000000000000004 0.90000000000000002) (BaseEvidence cohort-quiz)) (CohortConditional CohortA WeakPrerequisiteKnowledge (stv 0.84999999999999998 0.90000000000000002) (BaseEvidence cohort-prerequisite)) (Fact (Prior CohortA) (stv 0.10000000000000001 0.90000000000000002) (BaseEvidence prior-cohort)) (Fact (Prior LowQuizPerformance) (stv 0.40000000000000002 0.90000000000000002) (BaseEvidence prior-quiz)) (Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20000000000000001 0.90000000000000002) (BaseEvidence prior-prerequisite))))))"
+    },
+    "explanation": "Cohort conditional estimates generate LowQuizPerformance -> WeakPrerequisiteKnowledge. Both search directions use it for Sara, carrying cohort and prior support."
+  },
+  {
+    "scenario": "H - Forward/backward agreement",
+    "comparisons": [
+      {
+        "statement": "(Evaluation AcademicRisk Hana)",
+        "forward": [
+          0.5688096320703258,
+          0.3476728315191026
+        ],
+        "backward": [
+          0.5688096320703258,
+          0.3476728315191026
+        ],
+        "support": [
+          "assignment-001",
+          "prior-difficulty",
+          "prior-prerequisite",
+          "prior-risk",
+          "quiz-001",
+          "rule-assignment-risk",
+          "rule-difficulty-risk",
+          "rule-prerequisite-difficulty",
+          "rule-test-prerequisite"
+        ]
+      },
+      {
+        "statement": "(Evaluation AcademicIntervention Hana)",
+        "forward": [
+          0.43171999999999994,
+          0.07506135
+        ],
+        "backward": [
+          0.43171999999999994,
+          0.07506135
+        ],
+        "support": [
+          "assignment-001",
+          "rule-assignment-risk",
+          "rule-risk-intervention"
+        ]
+      },
+      {
+        "statement": "(Evaluation LowQuizPerformance Hana)",
+        "forward": [
+          0.8368823975269788,
+          0.8608552521642233
+        ],
+        "backward": [
+          0.8368823975269788,
+          0.8608552521642233
+        ],
+        "support": [
+          "quiz-001",
+          "quiz-002",
+          "rule-prerequisite-quiz",
+          "rule-test-prerequisite"
+        ]
+      }
+    ],
+    "explanation": "Both directions enumerate bounded acyclic proofs and apply the same deterministic disjoint-evidence selection policy."
+  }
+]

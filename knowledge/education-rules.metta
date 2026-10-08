@@ -1,16 +1,20 @@
-;; Educational Rules and Probabilistic Implications
+(Fact (Prior WeakPrerequisiteTest) (stv 0.10 0.90) (BaseEvidence prior-prerequisite-test))
+(Fact (Prior WeakPrerequisiteKnowledge) (stv 0.20 0.90) (BaseEvidence prior-prerequisite))
+(Fact (Prior ConceptualDifficulty) (stv 0.25 0.90) (BaseEvidence prior-difficulty))
+(Fact (Prior AcademicRisk) (stv 0.35 0.90) (BaseEvidence prior-risk))
+(Fact (Prior AcademicIntervention) (stv 0.30 0.90) (BaseEvidence prior-intervention))
+(Fact (Prior LowEngagement) (stv 0.15 0.90) (BaseEvidence prior-engagement))
+(Fact (Prior LowAssignmentCompletion) (stv 0.30 0.90) (BaseEvidence prior-assignment))
+(Fact (Prior LowQuizPerformance) (stv 0.40 0.90) (BaseEvidence prior-quiz))
 
-;; Expected logical chain for inference testing:
-(Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90 0.85))
-(Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.85 0.80))
-(Rule (Implication ConceptualDifficulty AcademicRisk) (stv 0.80 0.70))
-(Rule (Implication AcademicRisk AcademicIntervention) (stv 0.75 0.65))
+(Rule (Implication WeakPrerequisiteTest WeakPrerequisiteKnowledge) (stv 0.90 0.85) (BaseEvidence rule-test-prerequisite))
+(Rule (Implication WeakPrerequisiteKnowledge ConceptualDifficulty) (stv 0.85 0.80) (BaseEvidence rule-prerequisite-difficulty))
+(Rule (Implication ConceptualDifficulty AcademicRisk) (stv 0.80 0.70) (BaseEvidence rule-difficulty-risk))
+(Rule (Implication AcademicRisk AcademicIntervention) (stv 0.75 0.65) (BaseEvidence rule-risk-intervention))
 
-;; Additional pathways to risk
-(Rule (Implication LowEngagement AcademicRisk) (stv 0.75 0.60))
-(Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.70 0.65))
+(Rule (Implication LowEngagement AcademicRisk) (stv 0.75 0.60) (BaseEvidence rule-engagement-risk))
+(Rule (Implication LowAssignmentCompletion AcademicRisk) (stv 0.70 0.65) (BaseEvidence rule-assignment-risk))
 
-;; Rules for Abduction (competing hypotheses for LowQuizPerformance)
-(Rule (Implication WeakPrerequisiteKnowledge LowQuizPerformance) (stv 0.85 0.80))
-(Rule (Implication LowEngagement LowQuizPerformance) (stv 0.75 0.70))
-(Rule (Implication ConceptualDifficulty LowQuizPerformance) (stv 0.90 0.85))
+(Rule (Implication WeakPrerequisiteKnowledge LowQuizPerformance) (stv 0.85 0.80) (BaseEvidence rule-prerequisite-quiz))
+(Rule (Implication LowEngagement LowQuizPerformance) (stv 0.75 0.70) (BaseEvidence rule-engagement-quiz))
+(Rule (Implication ConceptualDifficulty LowQuizPerformance) (stv 0.90 0.85) (BaseEvidence rule-difficulty-quiz))
